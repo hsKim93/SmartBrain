@@ -10,6 +10,12 @@ class Register extends React.Component {
         }
     }
 
+    onKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            this.onSubmitRegister();
+        }
+    };
+
     onEmailChange = (event) => {
         this.setState({ email: event.target.value })
     }
@@ -22,8 +28,8 @@ class Register extends React.Component {
         this.setState({ name: event.target.value })
     }
 
-    onSubmitSignin = () => {
-        fetch('http://localhost:3001/register', {
+    onSubmitRegister = () => {
+        fetch('https://infinite-basin-86559.herokuapp.com/register', {
             method: 'post',
             headers: { 'Content-Type': 'Application/json' },
             body: JSON.stringify({
@@ -34,7 +40,7 @@ class Register extends React.Component {
         })
             .then(res => res.json())
             .then(user => {
-                if (user) {
+                if (user.id) {
                     this.props.loadUser(user)
                     this.props.onRouteChange('home');
                 }
@@ -54,6 +60,7 @@ class Register extends React.Component {
                                 <label className="db fw6 lh-copy f6"
                                     htmlFor="name">Name</label>
                                 <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white"
+                                    onKeyPress={this.onKeyPress}
                                     onChange={this.onNameChange}
                                     type="name"
                                     name="name"
@@ -64,6 +71,7 @@ class Register extends React.Component {
                                 <label className="db fw6 lh-copy f6"
                                     htmlFor="email-address">Email</label>
                                 <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white"
+                                    onKeyPress={this.onKeyPress}
                                     onChange={this.onEmailChange}
                                     type="email"
                                     name="email-address"
@@ -74,6 +82,7 @@ class Register extends React.Component {
                                 <label className="db fw6 lh-copy f6"
                                     htmlFor="password">Password</label>
                                 <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white"
+                                    onKeyPress={this.onKeyPress}
                                     onChange={this.onPasswordChange}
                                     type="password"
                                     name="password"
@@ -82,10 +91,10 @@ class Register extends React.Component {
                             </div>
                         </fieldset>
                         <div className="">
-                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent pointer f6 dib"
+                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent pointer f6 dib grow"
                                 type="submit"
                                 value="Register"
-                                onClick={this.onSubmitSignin}
+                                onClick={this.onSubmitRegister}
                             />
                         </div>
                     </div>

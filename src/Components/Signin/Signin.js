@@ -24,21 +24,21 @@ class Signin extends React.Component {
     };
 
     onSubmitSignin = () => {
-        fetch('http://localhost:3001/signin', {
-            method: 'post',
-            headers: { 'Content-Type': 'Application/json' },
-            body: JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword
+            fetch('https://infinite-basin-86559.herokuapp.com/signin', {
+                method: 'post',
+                headers: { 'Content-Type': 'Application/json' },
+                body: JSON.stringify({
+                    email: this.state.signInEmail,
+                    password: this.state.signInPassword
+                })
             })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.id) {
-                    this.props.loadUser(data);
-                    this.props.onRouteChange('home');
-                }
-            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.id) {
+                        this.props.loadUser(data);
+                        this.props.onRouteChange('home');
+                    }
+                })
     };
 
     render() {
@@ -75,7 +75,7 @@ class Signin extends React.Component {
                             {/* <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label> */}
                         </fieldset>
                         <div className="">
-                            <input className="b ph4 pv2 input-reset ba b--black bg-transparent pointer f6 dib"
+                            <input className="b grow ph4 pv2 input-reset ba b--black bg-transparent pointer f6 dib"
                                 type="submit"
                                 value="Sign in"
                                 onClick={this.onSubmitSignin}
